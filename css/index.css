@@ -20,9 +20,12 @@ body {
 .content {
     text-align: center;
     color: #fff;
+    width: calc(100% - 4rem);
     padding: 0rem 2rem 2rem 2rem;
     border-radius: 15px;
     background-color: rgba(255, 255, 255, 0.06);
+    margin-left: 2rem;
+    margin-right: 2rem;
 }
 
 .heading {
@@ -46,7 +49,7 @@ body {
 }
 
 button {
-    width: 20rem;
+    width: 18rem;
     height: 5rem;
     font-size: 1.5rem;
     cursor: pointer;
