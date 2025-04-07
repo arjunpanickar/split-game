@@ -1,0 +1,70 @@
+@font-face {
+	font-family: super_peace;
+	src: url("../media/super_peace.ttf");
+}
+@font-face {
+	font-family: arial;
+	src: url("../media/arial.ttf");
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #000;
+    font-family: arial;
+}
+
+.content {
+    text-align: center;
+    color: #fff;
+    padding: 0rem 2rem 2rem 2rem;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.06);
+}
+
+.heading {
+    font-family: super_peace;
+    font-size: 7rem;
+    margin-bottom: 3rem;
+    margin-top: 0rem;
+    color: #fff;
+    text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.5);
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.button {
+    width: 100%;
+}
+
+button {
+    width: 20rem;
+    height: 5rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    border: 2px solid #fff;
+    border-radius: 10px;
+    background-color: transparent;
+    color: #fff;
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.2);
+    transition: all 250ms ease;
+}
+
+button:hover {
+    transform: scale(1.08);
+    background-color: #fff;
+    color: #000;
+}
+
+a {
+    text-decoration: none;
+}

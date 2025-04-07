@@ -1,0 +1,75 @@
+.preload {
+	display: none;
+}
+.game {
+	width: 450px;
+	margin: 15px auto;
+	color: #fff;
+}
+.region {
+	width: 50%;
+	float: left;
+}
+.label {
+	padding: 10px 0;
+	margin: 0 0 37px;
+	text-align: center;
+}
+.hand {
+	display: block;
+	margin: 0 auto;
+	width: 156px;
+	height: 112px;
+	text-align: center;
+	border: 1px solid transparent;
+}
+.hand:hover {
+	cursor: pointer;
+}
+.hand.p1.top {
+	transform: scaleY(-1);
+}
+.hand.p2.top {
+	transform: rotate(180deg);
+}
+.hand.p2.bottom {
+	transform: scaleY(-1) rotate(180deg);
+}
+.currentTurn {
+	outline: 2px solid;
+	color: #fff;
+	border-radius: 1rem;
+}
+.split-container {
+	height: 60px;
+	line-height: 60px;
+	text-align: center;
+}
+.split-btn {
+	display: none;
+	margin: 0 auto;
+	width: 75px;
+	height: 40px;
+	font-size: 18px;
+}
+.gameOver {
+	margin: 75px auto;
+	text-align: center;
+	font-size: 35px;
+	font-weight: bold;
+}
+img {
+	filter: invert(100%);
+}
+.reset-btn {
+	margin-bottom: 2rem;
+	width: 100%;
+	font-size: 2rem;
+}
+.reset-btn > div {
+	transform: translateY(-1rem);
+}
+.reset-btn > div > span{
+	font-size: 4rem;
+	transform: translateY(10rem);
+}
