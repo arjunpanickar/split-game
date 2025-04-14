@@ -1,5 +1,5 @@
 // creates psuedo-namespace
-var CHOP = {};
+var GAME = {};
 
 
 //###################
@@ -13,11 +13,11 @@ $(document).ready(function() {
 
 	"use strict";
 
-	CHOP.createGlobalVars();
-	CHOP.addBtnListeners();
+	GAME.createGlobalVars();
+	GAME.addBtnListeners();
 
 	// indicates player-1's turn
-	CHOP.p1Region.addClass("currentTurn");
+	GAME.p1Region.addClass("currentTurn");
 
 	console.log("jQuery works");
 });
@@ -29,22 +29,22 @@ $(document).ready(function() {
 /**
  * Adds listener functions to all game buttons
 */
-CHOP.addBtnListeners = function() {
+GAME.addBtnListeners = function() {
 
 	// hands
-	CHOP.p1Hands.click(CHOP.onHandClick);
-	CHOP.p2Hands.click(CHOP.onHandClick);
+	GAME.p1Hands.click(GAME.onHandClick);
+	GAME.p2Hands.click(GAME.onHandClick);
 
 	// cancel and apply
-	CHOP.cancelBtns.click(function() { CHOP.exitSplit(false); });
-	CHOP.applyBtns.click(function() { CHOP.exitSplit(true); });
+	GAME.cancelBtns.click(function() { GAME.exitSplit(false); });
+	GAME.applyBtns.click(function() { GAME.exitSplit(true); });
 
 	// up and down
-	CHOP.downBtns.click(function() { CHOP.transferPoints(false); });
-	CHOP.upBtns.click(function() { CHOP.transferPoints(true); });
+	GAME.downBtns.click(function() { GAME.transferPoints(false); });
+	GAME.upBtns.click(function() { GAME.transferPoints(true); });
 
 	// reset
-	CHOP.resetBtn.click(CHOP.resetGame)
+	GAME.resetBtn.click(GAME.resetGame)
 };
 
 
@@ -60,7 +60,7 @@ function add(num1, num2) {
 	return (num1 + num2) % 5
 }
 
-CHOP.attack = function(amount, target) {
+GAME.attack = function(amount, target) {
 
 	console.log("Attacked '"+ target.attr("class") + "' with " + amount +
 		" points"
@@ -69,38 +69,38 @@ CHOP.attack = function(amount, target) {
 	var targetValue = Number(target.attr("points"));
 
 	// deducts amount from target hand's value
-	CHOP.updateHand(target, add(targetValue, amount), false);
+	GAME.updateHand(target, add(targetValue, amount), false);
 
 	// changes state depending upon whether game over occured
 	// ### STATE 1 ###
-	if (CHOP.state == 1) {
+	if (GAME.state == 1) {
 
-		if (CHOP.p2HandTop.attr("points") == 0 &&
-			CHOP.p2HandBottom.attr("points") == 0) {
+		if (GAME.p2HandTop.attr("points") == 0 &&
+			GAME.p2HandBottom.attr("points") == 0) {
 
 			console.log("Game Over p1 wins");
 
 			// apply game over screen after a brief delay
-			window.setTimeout(function() { CHOP.gameOver(1); }, 500);
+			window.setTimeout(function() { GAME.gameOver(1); }, 500);
 
-			CHOP.state = 6;
+			GAME.state = 6;
 		}
-		else { CHOP.state = 3; }
+		else { GAME.state = 3; }
 	}
 	// ### STATE 4 ###
-	else if (CHOP.state == 4) {
+	else if (GAME.state == 4) {
 
-		if (CHOP.p1HandTop.attr("points") == 0 &&
-			CHOP.p1HandBottom.attr("points") == 0) {
+		if (GAME.p1HandTop.attr("points") == 0 &&
+			GAME.p1HandBottom.attr("points") == 0) {
 
 			console.log("Game Over p2 wins");
 
 			// apply game over screen after a brief delay
-			window.setTimeout(function() { CHOP.gameOver(2); }, 500);
+			window.setTimeout(function() { GAME.gameOver(2); }, 500);
 
-			CHOP.state = 6;
+			GAME.state = 6;
 		}
-		else { CHOP.state = 0; }
+		else { GAME.state = 0; }
 	}
 };
 
@@ -113,26 +113,26 @@ CHOP.attack = function(amount, target) {
  * applied. Otherwise the split will be cancelled and the current player's
  * turn will be restarted.
 */
-CHOP.exitSplit = function(toBeApplied) {
+GAME.exitSplit = function(toBeApplied) {
 
 	// apply split
 	if (toBeApplied) {
 
-		// CHOP.state = (CHOP.state == 2) ? 0 : 3;
-		// CHOP.switchTurnIndicator();
+		// GAME.state = (GAME.state == 2) ? 0 : 3;
+		// GAME.switchTurnIndicator();
 		// ### STATE 2 ###
-		if (CHOP.state == 2) {
-			half = (parseInt(CHOP.p1HandTop.attr("points")) + parseInt(CHOP.p1HandBottom.attr("points")))/2
-			CHOP.updateHand(CHOP.p1HandTop, half, true);
-			CHOP.updateHand(CHOP.p1HandBottom, half, true);
-			CHOP.state = 0;
+		if (GAME.state == 2) {
+			half = (parseInt(GAME.p1HandTop.attr("points")) + parseInt(GAME.p1HandBottom.attr("points")))/2
+			GAME.updateHand(GAME.p1HandTop, half, true);
+			GAME.updateHand(GAME.p1HandBottom, half, true);
+			GAME.state = 0;
 		}
 		// ### STATE 5 ###
-		else if (CHOP.state == 5) {
-			half = (parseInt(CHOP.p2HandTop.attr("points")) + parseInt(CHOP.p2HandBottom.attr("points")))/2
-			CHOP.updateHand(CHOP.p2HandTop, half, true);
-			CHOP.updateHand(CHOP.p2HandBottom, half, true);
-			CHOP.state = 3;
+		else if (GAME.state == 5) {
+			half = (parseInt(GAME.p2HandTop.attr("points")) + parseInt(GAME.p2HandBottom.attr("points")))/2
+			GAME.updateHand(GAME.p2HandTop, half, true);
+			GAME.updateHand(GAME.p2HandBottom, half, true);
+			GAME.state = 3;
 		}
 		else {
 
@@ -146,18 +146,18 @@ CHOP.exitSplit = function(toBeApplied) {
 	else {
 
 		// ### STATE 2 ###
-		if (CHOP.state == 2) {
+		if (GAME.state == 2) {
 
-			CHOP.updateHand(CHOP.p1HandTop, CHOP.backupPoints[0], true);
-			CHOP.updateHand(CHOP.p1HandBottom, CHOP.backupPoints[1], true);
-			CHOP.state = 0;
+			GAME.updateHand(GAME.p1HandTop, GAME.backupPoints[0], true);
+			GAME.updateHand(GAME.p1HandBottom, GAME.backupPoints[1], true);
+			GAME.state = 0;
 		}
 		// ### STATE 5 ###
-		else if (CHOP.state == 5) {
+		else if (GAME.state == 5) {
 
-			CHOP.updateHand(CHOP.p2HandTop, CHOP.backupPoints[0], true);
-			CHOP.updateHand(CHOP.p2HandBottom, CHOP.backupPoints[1], true);
-			CHOP.state = 3;
+			GAME.updateHand(GAME.p2HandTop, GAME.backupPoints[0], true);
+			GAME.updateHand(GAME.p2HandBottom, GAME.backupPoints[1], true);
+			GAME.state = 3;
 		}
 		else {
 
@@ -168,11 +168,11 @@ CHOP.exitSplit = function(toBeApplied) {
 	}
 
 	// clean up remains of the split mode
-	CHOP.unselectHand(CHOP.p1HandTop);
-	CHOP.unselectHand(CHOP.p1HandBottom);
-	CHOP.unselectHand(CHOP.p2HandTop);
-	CHOP.unselectHand(CHOP.p2HandBottom);
-	CHOP.splitBtns.css("display", "");
+	GAME.unselectHand(GAME.p1HandTop);
+	GAME.unselectHand(GAME.p1HandBottom);
+	GAME.unselectHand(GAME.p2HandTop);
+	GAME.unselectHand(GAME.p2HandBottom);
+	GAME.splitBtns.css("display", "");
 }
 
 
@@ -183,25 +183,25 @@ CHOP.exitSplit = function(toBeApplied) {
  * Replaces the normal game screen with a game over message, depending
  * upon which player won
 */
-CHOP.gameOver = function(playerNumber) {
+GAME.gameOver = function(playerNumber) {
 
-	// CHOP.game
+	// GAME.game
 	// 	.html("Game Over</br>Player " + playerNumber + " Wins")
 	// 	.addClass("gameOver");
 	alert("Game Over\nPlayer " + playerNumber + " Wins");
 };
 
-CHOP.resetGame = function () {
+GAME.resetGame = function () {
 	console.log("reset");
-	if (CHOP.state > 2) {
-		CHOP.switchTurnIndicator();
+	if (GAME.state > 2) {
+		GAME.switchTurnIndicator();
 	}
-	CHOP.state = 0;
-	CHOP.backupPoints = [null, null];
-	CHOP.updateHand(CHOP.p1HandTop, 1, false);
-	CHOP.updateHand(CHOP.p1HandBottom, 1, false);
-	CHOP.updateHand(CHOP.p2HandTop, 1, false);
-	CHOP.updateHand(CHOP.p2HandBottom, 1, false);
+	GAME.state = 0;
+	GAME.backupPoints = [null, null];
+	GAME.updateHand(GAME.p1HandTop, 1, false);
+	GAME.updateHand(GAME.p1HandBottom, 1, false);
+	GAME.updateHand(GAME.p2HandTop, 1, false);
+	GAME.updateHand(GAME.p2HandBottom, 1, false);
 }
 
 
@@ -211,32 +211,32 @@ CHOP.resetGame = function () {
 /**
  * Creates variables in global namespace
 */
-CHOP.createGlobalVars = function() {
+GAME.createGlobalVars = function() {
 
-	CHOP.game = $(".game");
-	CHOP.startBtn = $(".option.start");
-	CHOP.regions = $(".region");
+	GAME.game = $(".game");
+	GAME.startBtn = $(".option.start");
+	GAME.regions = $(".region");
 
-	CHOP.state = 0;
-	CHOP.backupPoints = [null, null];
+	GAME.state = 0;
+	GAME.backupPoints = [null, null];
 
-	CHOP.p1Region = $(".region.p1");
-	CHOP.p1Hands = $(".hand.p1");
-	CHOP.p1HandTop = $(".p1.top");
-	CHOP.p1HandBottom = $(".p1.bottom");
+	GAME.p1Region = $(".region.p1");
+	GAME.p1Hands = $(".hand.p1");
+	GAME.p1HandTop = $(".p1.top");
+	GAME.p1HandBottom = $(".p1.bottom");
 
-	CHOP.p2Region = $(".region.p2");
-	CHOP.p2Hands = $(".hand.p2");
-	CHOP.p2HandTop = $(".p2.top");
-	CHOP.p2HandBottom = $(".p2.bottom");
+	GAME.p2Region = $(".region.p2");
+	GAME.p2Hands = $(".hand.p2");
+	GAME.p2HandTop = $(".p2.top");
+	GAME.p2HandBottom = $(".p2.bottom");
 
-	CHOP.splitBtns = $(".split-btn");
-	CHOP.upBtns = $(".split-btn.up");
-	CHOP.downBtns = $(".split-btn.down");
-	CHOP.applyBtns = $(".split-btn.apply");
-	CHOP.cancelBtns = $(".split-btn.cancel");
+	GAME.splitBtns = $(".split-btn");
+	GAME.upBtns = $(".split-btn.up");
+	GAME.downBtns = $(".split-btn.down");
+	GAME.applyBtns = $(".split-btn.apply");
+	GAME.cancelBtns = $(".split-btn.cancel");
 
-	CHOP.resetBtn = $(".reset-btn");
+	GAME.resetBtn = $(".reset-btn");
 }
 
 
@@ -251,7 +251,7 @@ CHOP.createGlobalVars = function() {
  *		- new points are not too big,
  * otherwise returns false.
 */
-CHOP.isLegalSplit = function(ptsOrig, ptsNew) {
+GAME.isLegalSplit = function(ptsOrig, ptsNew) {
 
 	var changed = (ptsOrig[0] != ptsNew[0]) && (ptsOrig[1] != ptsNew[1]);
 	var fair = (ptsOrig[0] - ptsNew[0]) == -1 * (ptsOrig[1] - ptsNew[1]);
@@ -269,7 +269,7 @@ CHOP.isLegalSplit = function(ptsOrig, ptsNew) {
  * called by whenever the user clicks a hand.
  *
 */
-CHOP.onHandClick = function() {
+GAME.onHandClick = function() {
 
 	// identify the caller by:
 	// set playerNum = 1 or 2
@@ -279,105 +279,105 @@ CHOP.onHandClick = function() {
 	var isSelected = caller.hasClass("selected");
 
 	console.log(
-		"Current state: " + CHOP.state +
+		"Current state: " + GAME.state +
 		"\nClicked hand belonging to player #: " + playerNum +
 		"\nThis hand was previously " +
 		(isSelected ? "selected" : "unselected")
 		);
 
 	// ### STATE 0 ###
-	if (CHOP.state == 0 && playerNum == 1) {
+	if (GAME.state == 0 && playerNum == 1) {
 
-		CHOP.selectHand(caller);
-		CHOP.state = 1;
+		GAME.selectHand(caller);
+		GAME.state = 1;
 	}
 
 	// ### STATE 1 ###
-	else if (CHOP.state == 1) {
+	else if (GAME.state == 1) {
 
 		if (playerNum == 1 && isSelected) {
 
-			CHOP.unselectHand(caller);
-			CHOP.state = 0;
+			GAME.unselectHand(caller);
+			GAME.state = 0;
 		}
 		else if (playerNum == 1 && !isSelected) {
-			if (CHOP.p1HandTop.attr("points") % 2 == 1 || CHOP.p1HandBottom.attr("points") % 2 == 1) {
+			if (GAME.p1HandTop.attr("points") % 2 == 1 || GAME.p1HandBottom.attr("points") % 2 == 1) {
 				return;
 			}
-			if (CHOP.p1HandTop.attr("points") != 0 && CHOP.p1HandBottom.attr("points") != 0) {
+			if (GAME.p1HandTop.attr("points") != 0 && GAME.p1HandBottom.attr("points") != 0) {
 				return;
 			}
 
-			CHOP.selectHand(caller);
-			CHOP.state = 2;
-			CHOP.backupPoints = [
-				CHOP.p1HandTop.attr("points"),
-				CHOP.p1HandBottom.attr("points")
+			GAME.selectHand(caller);
+			GAME.state = 2;
+			GAME.backupPoints = [
+				GAME.p1HandTop.attr("points"),
+				GAME.p1HandBottom.attr("points")
 			];
 			$(".split-btn.p1").css("display", "initial");
 		}
 		else if (playerNum == 2) {
 
-			var attackingHand = CHOP.p1HandTop.hasClass("selected") ?
-				CHOP.p1HandTop : CHOP.p1HandBottom;
+			var attackingHand = GAME.p1HandTop.hasClass("selected") ?
+				GAME.p1HandTop : GAME.p1HandBottom;
 			var attackAmount = Number(attackingHand.attr("points"));
 
 			if ((attackAmount != 0) && (caller.attr("points") != 0)) {
 
-				CHOP.unselectHand(attackingHand);
-				CHOP.attack(attackAmount, caller);
-				CHOP.switchTurnIndicator();
+				GAME.unselectHand(attackingHand);
+				GAME.attack(attackAmount, caller);
+				GAME.switchTurnIndicator();
 			}
 		}
 	}
 
 	// ### STATE 3 ###
-	else if (CHOP.state == 3 && playerNum == 2) {
+	else if (GAME.state == 3 && playerNum == 2) {
 
-		CHOP.selectHand(caller);
-		CHOP.state = 4;
+		GAME.selectHand(caller);
+		GAME.state = 4;
 	}
 
 	// ### STATE 4 ###
-	else if (CHOP.state == 4) {
+	else if (GAME.state == 4) {
 
 		if (playerNum == 2 && isSelected) {	
 
-			CHOP.unselectHand(caller);
-			CHOP.state = 3;
+			GAME.unselectHand(caller);
+			GAME.state = 3;
 		}
 		else if (playerNum == 2 && !isSelected) {
-			if (CHOP.p2HandTop.attr("points") % 2 == 1 || CHOP.p2HandBottom.attr("points") % 2 == 1) {
+			if (GAME.p2HandTop.attr("points") % 2 == 1 || GAME.p2HandBottom.attr("points") % 2 == 1) {
 				return;
 			}
-			if (CHOP.p2HandTop.attr("points") != 0 && CHOP.p2HandBottom.attr("points") != 0) {
+			if (GAME.p2HandTop.attr("points") != 0 && GAME.p2HandBottom.attr("points") != 0) {
 				return;
 			}
 
-			CHOP.selectHand(caller);
-			CHOP.state = 5;
-			CHOP.backupPoints = [
-				CHOP.p2HandTop.attr("points"),
-				CHOP.p2HandBottom.attr("points")
+			GAME.selectHand(caller);
+			GAME.state = 5;
+			GAME.backupPoints = [
+				GAME.p2HandTop.attr("points"),
+				GAME.p2HandBottom.attr("points")
 			];
 			$(".split-btn.p2").css("display", "initial");
 		}
 		else if (playerNum == 1) {
 
-			var attackingHand = CHOP.p2HandTop.hasClass("selected") ?
-				CHOP.p2HandTop : CHOP.p2HandBottom;
+			var attackingHand = GAME.p2HandTop.hasClass("selected") ?
+				GAME.p2HandTop : GAME.p2HandBottom;
 			var attackAmount = Number(attackingHand.attr("points"));
 
 			if ((attackAmount != 0) && (caller.attr("points") != 0)) {
 
-				CHOP.unselectHand(attackingHand);
-				CHOP.attack(attackAmount, caller);
-				CHOP.switchTurnIndicator();
+				GAME.unselectHand(attackingHand);
+				GAME.attack(attackAmount, caller);
+				GAME.switchTurnIndicator();
 			}
 		}
 	}
 
-	console.log("Changed state to: " + CHOP.state);
+	console.log("Changed state to: " + GAME.state);
 };
 
 
@@ -388,7 +388,7 @@ CHOP.onHandClick = function() {
  * Marks a given hand as selected by changing the filepath of its image
  * tag. No changes are made if the given hand is already selected.
 */
-CHOP.selectHand = function(hand) {
+GAME.selectHand = function(hand) {
 
 	var old = hand.attr("src");
 	if (old.search("unselected") != -1) {
@@ -405,10 +405,10 @@ CHOP.selectHand = function(hand) {
 /**
  * Switches style of `region` elements to indicate which whose turn it is. 
 */
-CHOP.switchTurnIndicator = function() {
+GAME.switchTurnIndicator = function() {
 
-	CHOP.p1Region.toggleClass("currentTurn");
-	CHOP.p2Region.toggleClass("currentTurn");
+	GAME.p1Region.toggleClass("currentTurn");
+	GAME.p2Region.toggleClass("currentTurn");
 };
 
 
@@ -424,21 +424,21 @@ CHOP.switchTurnIndicator = function() {
  *
  * The point transfer is checked for legality before it is applied.
 */
-CHOP.transferPoints = function(upwards) {
+GAME.transferPoints = function(upwards) {
 
 	// identifies current players hands
 	var handTop, handBottom;
 	// ### STATE 2 ###
-	if (CHOP.state == 2) {
+	if (GAME.state == 2) {
 
-		handTop = CHOP.p1HandTop;
-		handBottom = CHOP.p1HandBottom;
+		handTop = GAME.p1HandTop;
+		handBottom = GAME.p1HandBottom;
 	}
 	// ### STATE 5 ###
-	else if (CHOP.state == 5) {
+	else if (GAME.state == 5) {
 
-		handTop = CHOP.p2HandTop;
-		handBottom = CHOP.p2HandBottom;
+		handTop = GAME.p2HandTop;
+		handBottom = GAME.p2HandBottom;
 	}
 	else {
 
@@ -464,10 +464,10 @@ CHOP.transferPoints = function(upwards) {
 		];
 
 	// displays new points (if they're legal)
-	if (CHOP.isLegalSplit(ptsOrig, ptsNew)) {
+	if (GAME.isLegalSplit(ptsOrig, ptsNew)) {
 
-		CHOP.updateHand(handTop, ptsNew[0], true);
-		CHOP.updateHand(handBottom, ptsNew[1], true);
+		GAME.updateHand(handTop, ptsNew[0], true);
+		GAME.updateHand(handBottom, ptsNew[1], true);
 	}
 }
 
@@ -479,7 +479,7 @@ CHOP.transferPoints = function(upwards) {
  * Marks a given hand as unselected by changing the filepath of its image
  * tag. No changes are made if the given hand is already unselected.
 */
-CHOP.unselectHand = function(hand) {
+GAME.unselectHand = function(hand) {
 
 	var old = hand.attr("src");
 	if (old.search("unselected") == -1) {
@@ -497,7 +497,7 @@ CHOP.unselectHand = function(hand) {
  * Updates hand by assigning the given points and swapping in the
  * corresponding hand image.
 */
-CHOP.updateHand = function(hand, points, isSelected) {
+GAME.updateHand = function(hand, points, isSelected) {
 
 	hand.attr("points", points);
 
