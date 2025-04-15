@@ -32,15 +32,17 @@ GAME.start = function(isPlayerFirst) {
 		// GAME.p2Region.addClass("currentTurn");
 		// GAME.p1Region.removeClass("currentTurn");
 		// GAME.state = 3;
-		GAME.restartBtn.click(GAME.restartPlayerFirst);
 		GAME.restartBtn.off('click', GAME.restartBotFirst);
+		GAME.restartBtn.off('click', GAME.restartPlayerFirst);
+		GAME.restartBtn.click(GAME.restartPlayerFirst);
 	} else {
 		// indicates bots's turn
 		// GAME.p1Region.addClass("currentTurn");
 		// GAME.p2Region.removeClass("currentTurn");
 		// GAME.state = 0;
-		GAME.restartBtn.click(GAME.restartBotFirst);
+		GAME.restartBtn.off('click', GAME.restartBotFirst);
 		GAME.restartBtn.off('click', GAME.restartPlayerFirst);
+		GAME.restartBtn.click(GAME.restartBotFirst);
 	}
 	GAME.restartBtn.click();
 
@@ -68,7 +70,17 @@ GAME.addBtnListeners = function() {
 	
 	// back
 	GAME.backBtn.click(function() {
+		if (GAME.state < 3){
+			return;
+		}
 		GAME.regions.fadeOut(300, function() {
+			GAME.startScreen.fadeIn();
+		});
+	});
+
+	// play again
+	GAME.playAgainButton.click(function() {
+		GAME.gameOverScreen.fadeOut(300, function() {
 			GAME.startScreen.fadeIn();
 		});
 	});
@@ -88,6 +100,7 @@ GAME.addBtnListeners = function() {
 };
 
 GAME.doBotMove = function(move) {
+	GAME.isBotPlaying = true;
 	let animationDelay = 800;
 	console.log(move);
 	if (move[2] == 1){
@@ -137,7 +150,7 @@ GAME.doBotMove = function(move) {
 }
 
 GAME.doBotMoveWithoutSplit = function(move, animationDelay) {
-	let sum = add(Number(move[0]), Number(move[1]));
+	// let sum = add(Number(move[0]), Number(move[1]));
 
 	let attackingHand = null;
 	if(move[0] == GAME.p1HandTop.attr("points")){
@@ -171,6 +184,7 @@ GAME.doBotMoveWithoutSplit = function(move, animationDelay) {
 				GAME.unselectHand(attackingHand);
 				GAME.attack(Number(move[0]), attackedHand);
 				GAME.switchTurnIndicator();
+				GAME.isBotPlaying = false;
 			}, animationDelay);
 		}, animationDelay);
 	}, animationDelay);
@@ -209,7 +223,7 @@ GAME.attack = function(amount, target) {
 			console.log("Game Over p1 wins");
 
 			// apply game over screen after a brief delay
-			window.setTimeout(function() { GAME.gameOver("lost"); }, 500);
+			window.setTimeout(function() { GAME.gameOver("Lose :("); }, 500);
 
 			GAME.state = 6;
 		}
@@ -224,7 +238,7 @@ GAME.attack = function(amount, target) {
 			console.log("Game Over p2 wins");
 
 			// apply game over screen after a brief delay
-			window.setTimeout(function() { GAME.gameOver("won"); }, 500);
+			window.setTimeout(function() { GAME.gameOver("Win :)"); }, 500);
 
 			GAME.state = 6;
 		}
@@ -298,11 +312,11 @@ GAME.exitSplit = function(toBeApplied) {
 	}
 
 	// clean up remains of the split mode
+	GAME.splitBtns.css("visibility", "");
 	GAME.unselectHand(GAME.p1HandTop);
 	GAME.unselectHand(GAME.p1HandBottom);
 	GAME.unselectHand(GAME.p2HandTop);
 	GAME.unselectHand(GAME.p2HandBottom);
-	GAME.splitBtns.css("display", "");
 }
 
 
@@ -318,10 +332,18 @@ GAME.gameOver = function(result) {
 	// GAME.game
 	// 	.html("Game Over</br>Player " + playerNumber + " Wins")
 	// 	.addClass("gameOver");
-	alert("Game Over\nYou " + result);
+	GAME.gameOverResult.innerText = "You " + result;
+	GAME.regions.fadeOut(300, function() {
+		GAME.gameOverScreen.fadeIn();
+	});
+	// alert("Game Over\nYou " + result);
 };
 
 GAME.restartGame = function (isPlayerFirst) {
+	GAME.updateHand(GAME.p1HandTop, 1, false);
+	GAME.updateHand(GAME.p1HandBottom, 1, false);
+	GAME.updateHand(GAME.p2HandTop, 1, false);
+	GAME.updateHand(GAME.p2HandBottom, 1, false);
 	if (isPlayerFirst) {
 		console.log("player");
 		
@@ -338,18 +360,22 @@ GAME.restartGame = function (isPlayerFirst) {
 		GAME.state = 0;
 	}
 	GAME.backupPoints = [null, null];
-	GAME.updateHand(GAME.p1HandTop, 1, false);
-	GAME.updateHand(GAME.p1HandBottom, 1, false);
-	GAME.updateHand(GAME.p2HandTop, 1, false);
-	GAME.updateHand(GAME.p2HandBottom, 1, false);
 }
 GAME.restartBotFirst = function() {
+	if (GAME.isBotPlaying) {
+		return;
+	}
 	GAME.restartGame(false);
 	setTimeout(function() {
 		GAME.doBotMove(GAME.findBestMove())
 	}, 200);
 };
-GAME.restartPlayerFirst = function() {GAME.restartGame(true);};
+GAME.restartPlayerFirst = function() {
+	if (GAME.isBotPlaying) {
+		return;
+	}
+	GAME.restartGame(true);
+};
 
 //########################
 //#   createGlobalVars   #
@@ -386,6 +412,12 @@ GAME.createGlobalVars = function() {
 
 	GAME.restartBtn = $(".restart-btn");
 	GAME.backBtn = $(".back-btn");
+
+	GAME.gameOverScreen = $(".game-over-screen");
+	GAME.gameOverResult = $(".game-over-result")[0];
+	GAME.playAgainButton = $(".play-again-btn");
+
+	GAME.isBotPlaying = false;
 }
 
 
@@ -509,7 +541,8 @@ GAME.onHandClick = function() {
 				GAME.p2HandTop.attr("points"),
 				GAME.p2HandBottom.attr("points")
 			];
-			$(".split-btn.p2").css("display", "initial");
+			// $(".split-btn.p2").css("display", "initial");
+			GAME.splitBtns.css("visibility", "visible");
 		}
 		else if (playerNum == 1) {
 

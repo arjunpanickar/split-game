@@ -32,20 +32,13 @@ button:hover {
 .preload {
 	display: none;
 }
-.start-screen {
-	display: none;
-}
-.you-first-btn, .bot-first-btn {
-	width: 100%;
-	margin: 0.5rem 0rem;
-}
-.game-screen {
+/* .game-screen {
 	display: flex;
 	flex-direction: column;
-	width: calc(100%-1rem);
+	width: min(25rem, calc(100% - 1rem));
 	margin: 1rem;
-}
-.back-btn {
+} */
+/* .back-btn {
 	width: calc(30% - 0.6rem);
 	float: left;
 }
@@ -53,6 +46,10 @@ button:hover {
 	font-size: 3rem;
 	transform: translateY(-0.3rem)
 }
+.restart-emoji {
+    font-size: 3rem;
+    transform: translate(-0.3rem, -0.4rem);
+} 
 .restart-btn {
 	width: calc(70% - 0.6rem);
 	float: right;
@@ -60,14 +57,11 @@ button:hover {
 	align-items: center;
 	justify-content: center;
 }
-.restart-emoji {
-	font-size: 3rem;
-	transform: translate(-0.3rem, -0.4rem);
-}
-img {
+    */
+    img {
 	filter: invert(100%);
 }
-.split-container {
+/* .split-container {
 	display: block;
 	height: 5rem;
 	margin-top: 2rem;
@@ -81,7 +75,7 @@ img {
 }
 .split-btn.cancel {
 	float: right;
-}
+} */
 .hand.p1.top {
 	transform: rotate(90deg);
 }
@@ -95,10 +89,16 @@ img {
 	transform: rotate(-90deg);
 }
 .hand {
-	/* display: block;
-	margin: 0 auto; */
-	width: 10rem;
-	/* height: 112px; */
+    width: 100%;;
+}
+/* .hand {
+    commented(
+        display: block;
+        margin: 0 auto;
+        width: 10rem;
+        height: 11vh;
+    )
+	width: 2vw;
 	text-align: center;
 	border: 1px solid transparent;
 }
@@ -118,9 +118,148 @@ img {
 }
 .label.p2 {
 	margin-top: 2rem
-}
+} */
 .currentTurn {
 	outline: 2px solid;
 	color: #fff;
 	border-radius: 1rem;
+}
+
+.start-screen {
+	display: none;
+}
+.you-first-btn, .bot-first-btn, .play-again-btn{
+	width: 100%;
+	margin: 0.5rem 0rem;
+}
+
+/* .game {
+	width: 95wv;
+} */
+
+h2.game-over-title {
+	font-size: 2rem;
+	margin-top: 0rem;
+}
+h3.game-over-result {
+	font-size: 1.8rem;
+}
+.game-over-screen {
+	display: none;
+	text-align: center;
+	outline: 2px solid;
+	color: #fff;
+	border-radius: 1rem;
+	padding: 2rem;
+}
+
+.container {
+    display: grid;
+    grid-template-areas:
+      "back restart restart restart"
+      ". bot-label bot-label ."
+      "bot-left bot-left bot-right bot-right"
+      "player-left player-left player-right player-right"
+      ". player-label player-label ."
+      "split-apply split-apply split-cancel split-cancel";
+    grid-template-rows: 2fr 1fr 4fr 4fr 1fr 2fr;
+    /* grid-template-rows: 1fr 1fr 2fr 2fr 1fr 1fr; */
+    gap: 1rem;
+    background-color: #000;
+    /* padding: 5px; */
+}
+
+.back-btn {
+    grid-area: back;
+}
+.restart-btn {
+    grid-area: restart;
+}
+.p1.label {
+    grid-area: bot-label;
+}
+.p2.label {
+    grid-area: player-label ;
+}
+.hand.p1.top {
+    grid-area: bot-left;
+}
+.hand.p1.bottom {
+    grid-area: bot-right;
+}
+.hand.p1 {
+    margin-bottom: 1.5rem;
+}
+.hand.p2 {
+    margin-top: 1.5rem;
+}
+.hand.p2.top {
+    grid-area: player-left;
+}
+.hand.p2.bottom {
+    grid-area: player-right;
+}
+.split-btn.apply {
+    grid-area: split-apply;
+}
+.split-btn.cancel {
+    grid-area: split-cancel;
+}
+
+.region.p1 {
+    grid-row: 2 / 4;
+}
+.region.p2 {
+    grid-row: 4 / 6;
+}
+.label.p1, .label.p2 {
+    margin: 0rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/* .region.p1 {
+	margin-bottom: -1.5rem;
+}
+.region.p2 {
+	margin-top: -1.5rem;
+} */
+.region {
+    grid-column: 1 / -1;
+    /* border: 2px solid white; */
+    pointer-events: none;
+    z-index: 0;
+    background: transparent;
+}
+.label {
+    text-align: center;
+}
+.back-emoji {
+	font-size: 3rem;
+	transform: translateY(-0.4rem)
+}
+.restart-emoji {
+    font-size: 3rem;
+    transform: translate(-0.3rem, -0.4rem);
+}
+.restart-btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.split-btn {
+    visibility: hidden;
+}
+
+@media screen and (orientation:portrait) {
+    .game{
+        width: 96vw;
+        margin-left: 2vw;
+        margin-right: 2vw;
+    }
+}
+@media screen and (orientation:landscape) {
+    .game{
+        width: 28rem;
+    }
 }
