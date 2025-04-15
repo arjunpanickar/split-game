@@ -1,0 +1,126 @@
+@font-face {
+	font-family: arial;
+	src: url("../media/arial.ttf");
+}
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	margin: 0;
+	background-color: #000;
+	font-family: arial;
+	color: #fff;
+}
+button {
+	height: 5rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    border: 2px solid #fff;
+    border-radius: 10px;
+    background-color: transparent;
+    color: #fff;
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.2);
+    transition: all 250ms ease;
+}
+button:hover {
+    transform: scale(1.08);
+    background-color: #fff;
+    color: #000;
+}
+.preload {
+	display: none;
+}
+.start-screen {
+	display: none;
+}
+.you-first-btn, .bot-first-btn {
+	width: 100%;
+	margin: 0.5rem 0rem;
+}
+.game-screen {
+	display: flex;
+	flex-direction: column;
+	width: calc(100%-1rem);
+	margin: 1rem;
+}
+.back-btn {
+	width: calc(30% - 0.6rem);
+	float: left;
+}
+.back-emoji {
+	font-size: 3rem;
+	transform: translateY(-0.3rem)
+}
+.restart-btn {
+	width: calc(70% - 0.6rem);
+	float: right;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.restart-emoji {
+	font-size: 3rem;
+	transform: translate(-0.3rem, -0.4rem);
+}
+img {
+	filter: invert(100%);
+}
+.split-container {
+	display: block;
+	height: 5rem;
+	margin-top: 2rem;
+}
+.split-btn {
+	width: calc(50% - 0.6rem);
+	display: none;
+}
+.split-btn.apply {
+	float: left;
+}
+.split-btn.cancel {
+	float: right;
+}
+.hand.p1.top {
+	transform: rotate(90deg);
+}
+.hand.p1.bottom {
+	transform: rotate(90deg) scaleY(-1);
+}
+.hand.p2.top {
+	transform: rotate(-90deg) scaleY(-1);
+}
+.hand.p2.bottom {
+	transform: rotate(-90deg);
+}
+.hand {
+	/* display: block;
+	margin: 0 auto; */
+	width: 10rem;
+	/* height: 112px; */
+	text-align: center;
+	border: 1px solid transparent;
+}
+.region {
+	text-align: center;
+	margin-top: 2.5rem;
+	padding: 0.5rem;
+}
+.region.p1 {
+	padding-bottom: 2rem;
+}
+.region.p2 {
+	padding-top: 2rem;
+}
+.label.p1 {
+	margin-bottom: 2rem
+}
+.label.p2 {
+	margin-top: 2rem
+}
+.currentTurn {
+	outline: 2px solid;
+	color: #fff;
+	border-radius: 1rem;
+}
