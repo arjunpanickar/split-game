@@ -343,8 +343,13 @@ GAME.restartGame = function (isPlayerFirst) {
 	GAME.updateHand(GAME.p2HandTop, 1, false);
 	GAME.updateHand(GAME.p2HandBottom, 1, false);
 }
-GAME.restartBotFirst = function() {GAME.restartGame(false)};
-GAME.restartPlayerFirst = function() {GAME.restartGame(true)};
+GAME.restartBotFirst = function() {
+	GAME.restartGame(false);
+	setTimeout(function() {
+		GAME.doBotMove(GAME.findBestMove())
+	}, 200);
+};
+GAME.restartPlayerFirst = function() {GAME.restartGame(true);};
 
 //########################
 //#   createGlobalVars   #
