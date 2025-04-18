@@ -1,5 +1,5 @@
 # Split Game
-Split is a turn-based, two-player hand game. It is a variation of the hand game [Chopsticks][chopsticks wiki], which has its roots in Japan. There's also a variation called "Splits" (plural) commonly played in India. This game — Split — might be a regional variation of Splits. When I search online, I only find the game "Splits". But in my area, we call it “Split” and the rules differs with the ones found on the internet.
+Split is a turn-based, two-player hand game. It is a variation of the hand game [Chopsticks][chopsticks wiki], which has its roots in Japan. There's also a variation called "Splits" (plural) commonly played in India. This game — Split — might be a regional variation of Splits. When I search online, I only find the game "Splits". But in my area, we call it “Split” and the rules differs from the ones found on the internet.
 
 ## About
 This is a fork of [implementation of the game Chopsticks][original repo] by [Ian S. McBride][gh ian] and [Enan Rahman][gh enan]. This is an attempt to implement Split in a way that can also be played against a bot.
