@@ -1,0 +1,66 @@
+@font-face {
+	font-family: super_peace;
+	src: url("../media/super_peace.ttf");
+}
+@font-face {
+	font-family: arial;
+	src: url("../media/arial.ttf");
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: arial;
+    background-color: #000;
+    color: #fff;
+}
+h1 {
+    font-family: super_peace;
+    font-size: 4rem;
+    margin: -0.6rem;
+    margin-top: 0.6rem;
+    color: #fff;
+    text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.5);
+    text-align: center;
+}
+a {
+    color: #6060FF;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    text-align: justify;
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.06);
+    width: calc(100% - 4rem);
+    padding: 0rem 1rem 0rem 1rem;
+    border-radius: 15px;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    height: 80vh;
+}
+.scrollable-text {
+    overflow-y: auto;
+    padding-right: 1rem;
+    margin: 1rem 0rem;
+    flex-grow: 1;
+    font-size: 1rem;
+}
+
+@media screen and (orientation:portrait) {
+    .content {
+        width: 96vw;
+        margin-left: 2vw;
+        margin-right: 2vw;
+    }
+}
+@media screen and (orientation:landscape) {
+    .content {
+        width: 28rem;
+    }
+}
