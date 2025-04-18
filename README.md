@@ -1,27 +1,22 @@
-# Chopstick Hand Game JS
+# Split Game
+Split is a turn-based, two-player hand game. It is a variation of the hand game [Chopsticks][chopsticks wiki], which has its roots in Japan. There's also a variation called "Splits" (plural) commonly played in India. This game — Split — might be a regional variation of Splits. When I search online, I only find the game "Splits". But in my area, we call it “Split” and the rules differs with the ones found on the internet.
 
 ## About
-Never heard of the Chopsticks game? It's a simple, turn-based hand game where two players transfer points, as indicated by the number of extended fingers, from hand to hand.
+This is a fork of [implementation of the game Chopsticks][original repo] by [Ian S. McBride][gh ian] and [Enan Rahman][gh enan]. This is an attempt to implement Split in a way that can also be played against a bot.
 
 ## Game Rules
-The game begins with one point per hand, and the game ends when a player loses all their points. The player with no points left loses.
+The game begins with one point per hand, and the game ends when one of the player loses all points on both hands — in other words, has both hands are "dead". The player with both their hands dead loses. A dead hand is indicated by a closed fist.
 
-During a turn, a player can either **attack** or **split**. Attacking adds the all points from the attacking hand to the attacked hand, but leaves the attacking hand unchanged. Splitting redistributes points between the current player's hands. Each hand is limited to at most four points. When a hand reaches more than four points, that hand is reduced to zero points. A hand with zero points can't be attacked, but can be involved in a split.
+During a turn, a player can either **attack** or **split and attack**.
+ - Attacking adds all the points from the attacking hand to the attacked hand, but leaves the attacking hand unchanged.  
+ After an attack, if a hand exceeds four points, five points are subtracted from it. This is a crucial part of the game as this can make a hand dead.  
+ _Example_: If one of your hands has 2 points and is attacked by a hand with 3 points, the total becomes 5. Since that’s over 4, you subtract 5, and your hand ends up with 0 points — or rather dead.
 
-Still not clear? Check out [this wikipedia article][wiki game] for a full explanation of the game.
+ - Splitting is only allowed if one of the hands of the current player is dead (0 points) and the other hand has 2 or 4 points.  
+ It helps the player to revive their dead hand by transferring half the points of the live hand to the dead hand.  
+ A hand with zero points can't be used to attack the opponent or be attacked by the opponent, but it is required for a split.
 
-## Installation
-Clone this repo, go to this [url][game media], and download zip file inside. Place the zip file within repo and extract the files. Finally, open index.html in browser. (No web sever is needed to the play game.)
-
-## Development Notes
-[This sketch][state diagram] shows the state machine that we used to handle our game logic.
-
-## Contributors
-* [Enan Rahman][gh enan]
-* [Ian S. McBride][gh ian]
-
-[wiki game]: http://en.wikipedia.org/wiki/Chopsticks_%28hand_game%29
-[state diagram]: http://s6.postimg.org/p55dd228f/chopsticks_state_diagram_2014_12_12.jpg
+[chopsticks wiki]: https://en.wikipedia.org/wiki/Chopsticks_%28hand_game%29
+[original repo]: https://github.com/ian-s-mcb/chopsticks-hand-game-js
 [gh enan]: https://github.com/enan789
 [gh ian]: https://github.com/ian-s-mcb
-[game media]:https://drive.google.com/open?id=0BwomLAlOEfXYfkhMb3FPa1VXZ3JValdPY0p0eUVuS3lPZDAtSWI3SXlVUnoyb20xaE15N0U&authuser=0
