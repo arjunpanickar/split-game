@@ -1,9 +1,1 @@
-# vim temporary file
-*.swp
-
-# offline jquery library file
-jquery-*
-
-# media files
-media.zip
 media/
