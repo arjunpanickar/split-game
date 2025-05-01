@@ -24,13 +24,13 @@
 		</div>
 		<div class="game">
 			<div class="start-screen">
-				<button class="you-first-btn">You play first</button>
+				<button class="player-first-btn">You play first</button>
 				<button class="bot-first-btn">Bot plays first</button>
 			</div>
         	<div class="game-screen">
-				<div class="container">
-					<div class="region p1"></div>
-					<div class="region p2"></div>
+				<div class="grid-view">
+					<div class="turn-indicator bot"></div>
+					<div class="turn-indicator player"></div>
 					<button class="back-btn">
 						<div class="back-emoji">←</div>
 					</button>
@@ -38,19 +38,19 @@
 						<div class="restart-emoji">⟳</div>
 						<div class="restart-text">RESTART</div>
 					</button>
-					<h2 class="label p1">BOT</h2>
-					<img class="hand top p1" points="1" src="media/points-1-unselected.svg"/>
-					<img class="hand bottom p1" points="1" src="media/points-1-unselected.svg"/>
-					<img class="hand top p2" points="1" src="media/points-1-unselected.svg"/>
-					<img class="hand bottom p2" points="1" src="media/points-1-unselected.svg"/>
-					<h2 class="label p2">YOU</h2>
-					<button class="split-btn apply p2">Apply</button>
-					<button class="split-btn cancel p2">Cancel</button>
+					<h2 class="label bot">BOT</h2>
+					<img class="bot left hand" points="1" src="media/points-1-unselected.svg"/>
+					<img class="bot right hand" points="1" src="media/points-1-unselected.svg"/>
+					<img class="player left hand" points="1" src="media/points-1-unselected.svg"/>
+					<img class="player right hand" points="1" src="media/points-1-unselected.svg"/>
+					<h2 class="label player">YOU</h2>
+					<button class="split-btn apply player">Apply</button>
+					<button class="split-btn cancel player">Cancel</button>
 				</div>
 			</div>
 			<div class="game-over-screen">
 				<h2 class="game-over-title">GAME OVER</h2>
-				<h3 class="game-over-result">You Win :&rpar;</h3>
+				<h3 class="game-over-message">You Win :&rpar;</h3>
 				<button class="play-again-btn">Play Again?</button>
 			</div>
 		</div>
