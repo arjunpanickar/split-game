@@ -16,6 +16,9 @@ During a turn, a player can either **attack** or **split and attack**.
  It helps the player to revive their dead hand by transferring half the points of the live hand to the dead hand.  
  A hand with zero points can't be used to attack the opponent or be attacked by the opponent, but it is required for a split.
 
+## License
+[The Unlicense](LICENSE) — public domain, no warranty.
+
 [chopsticks wiki]: https://en.wikipedia.org/wiki/Chopsticks_%28hand_game%29
 [original repo]: https://github.com/ian-s-mcb/chopsticks-hand-game-js
 [gh enan]: https://github.com/enan789
